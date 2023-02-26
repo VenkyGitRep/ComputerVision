@@ -5,24 +5,15 @@
 //  Created by Venky Sundar on 2/12/23.
 //
 
-#include "HistogramMatching.hpp"
-#include <opencv2/opencv.hpp>
-#include "utils.hpp"
-#include "csv_util.h"
-#include "utils.hpp"
-#include <opencv.hpp>
 
-#include "csv_util.h"
-#include "FeatureCompareUtils.hpp"
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
+#include <opencv2/opencv.hpp>
+#include "HistogramMatching.hpp"
 #include <dirent.h>
 #include <vector>
 #include "csv_util.h"
-#include <opencv2/opencv.hpp>
-#include "utils.hpp"
 
+
+/**Returns a vector of the Normalised histogram of an image.**/
 std::vector<float> generateNormalisedHistogramVec(char* target){
     cv::Mat imgSrc;
     std::vector<float> histFeatVec;
@@ -30,7 +21,7 @@ std::vector<float> generateNormalisedHistogramVec(char* target){
     if(imgSrc.data==NULL){
         printf("Unable to read image %s\n",target);
     }else{
-        printf("Generating histogram vector for %s\n",target);
+        //printf("Generating histogram vector for %s\n",target);
         cv::Mat hist = cv::Mat::zeros(imgSrc.size(),CV_32FC3);
         float sumOfBins = 0;
         for(int i=0;i<imgSrc.rows;i++){
@@ -80,6 +71,8 @@ std::vector<float> generateNormalisedHistogramVec(char* target){
     return histFeatVec;
 }
 
+
+/**A vector of HistogramMatchingStruct is used to compare results of Histogram matching between images. **/
 struct HistogramMatchingStruct
 {
     double histIntersection;
@@ -98,6 +91,8 @@ struct HistogramMatchingStruct
         return (histIntersection < img.histIntersection);
     }
 };
+
+/**Compares two vectors(which are normalised histograms of images) and returns and histogram intersection. **/
 double gethistogramIntersectionDistance(vector<float> targetFeatures,vector<float> data){
     //Normalise histogram
     float sumOfMins = 0.0;
@@ -114,17 +109,21 @@ double gethistogramIntersectionDistance(vector<float> targetFeatures,vector<floa
     
     return fabs(1.0-sumOfMins);
 }
-int histogramMatching(char* targetImage,char* imagesDir,int n){
-    vector<float> targetFeatures,imgFeatures1,imgFeatures2;
+
+/**Main function for HIstogram matching. Input arguments are targetImage, image repository and n-number of best matches.**/
+vector<string> histogramMatching(char* targetImage,char* imagesDir,int n, bool readfromCsv){
+    vector<float> targetFeatures;
     targetFeatures=generateNormalisedHistogramVec(targetImage);
-    imgFeatures1=generateNormalisedHistogramVec("/Users/venkysundar/Desktop/CV5330/Project2/TestOlympusHist/pic.0005.jpg");
-    gethistogramIntersectionDistance(targetFeatures, imgFeatures1);
     
+    vector<string> result;
     std::vector<char*> imagefilenames;
     std::vector<std::vector<float>> data;
     char* histogramfeatureListCsv = "/Users/venkysundar/Desktop/CV5330/Project2/TestOlympusHist/HistogramfeatureList.csv";
     
-    readImages(imagesDir,histogramfeatureListCsv,2);
+    if(readfromCsv){
+        readImages(imagesDir,histogramfeatureListCsv,2);
+    }
+    
     read_image_data_csv(histogramfeatureListCsv, imagefilenames, data);
     
     vector<HistogramMatchingStruct> distanceVector;
@@ -134,20 +133,21 @@ int histogramMatching(char* targetImage,char* imagesDir,int n){
         distanceVector.push_back(HistogramMatchingStruct(targetImage,imagefilenames[i],gethistogramIntersectionDistance(targetFeatures, data[i])));
     }
     std::sort(distanceVector.begin(),distanceVector.end());
-    cout<<"Iterator output."<<endl;
-    printf("Printing first %d closest images.\n",n);
+    
+    printf("Printing first %d closest images for histogram matching.\n",n);
     int i=1;
     for(std::vector<HistogramMatchingStruct>::iterator  it = distanceVector.begin(); it != distanceVector.end(); it++) {
         cout << it->imageName<<endl;
+        result.push_back(it->imageName);
         i++;
         if(i>n)
             break;
     }
     
-    return 0;
+    return result;
 }
 
-
+/**This  returns a  normalised histogram vector of part of an image**/
 vector<float> getNormalizedVector(cv::Mat &mat, int rowStart,int rowEnd,int colStart,int colEnd){
     
     cv::Mat hist = cv::Mat::zeros(mat.size(),CV_32FC3);
@@ -194,7 +194,7 @@ vector<float> getNormalizedVector(cv::Mat &mat, int rowStart,int rowEnd,int colS
     return histFeatVec;
 }
 
-
+/*Returns a Normalised histogram vectors of parts of image. The image dimensions are split up as Image.row/rowDiv and Image.cols/colDiv  **/
 std::vector<std::vector<float>> generateNormalisedHistogramVecParts(char* target,int rowDiv, int colDiv){
     cv::Mat imgSrc;
     vector<vector<float>> normHistVectors;
@@ -203,7 +203,7 @@ std::vector<std::vector<float>> generateNormalisedHistogramVecParts(char* target
     if(imgSrc.data==NULL){
         printf("Unable to read image %s\n",target);
     }else{
-        printf("Generating histogram vector for %s\n",target);
+        //printf("Generating histogram vector for %s\n",target);
         
         
         for(int i=0;i<rowDiv;i++){
@@ -221,46 +221,15 @@ std::vector<std::vector<float>> generateNormalisedHistogramVecParts(char* target
 }
 
 
-int histogramMatchinginParts(char* targetImage,char* imagesDir,int n){
-    vector<float> targetFeatures,imgFeatures1,imgFeatures2;
-    targetFeatures=generateNormalisedHistogramVec(targetImage);
-    imgFeatures1=generateNormalisedHistogramVec("/Users/venkysundar/Desktop/CV5330/Project2/TestOlympusHist/pic.0005.jpg");
-    gethistogramIntersectionDistance(targetFeatures, imgFeatures1);
-    
-    std::vector<char*> imagefilenames;
-    std::vector<std::vector<float>> data;
-    char* histogramfeatureListCsv = "/Users/venkysundar/Desktop/CV5330/Project2/TestOlympusHist/HistogramfeatureList.csv";
-    
-    readImages(imagesDir,histogramfeatureListCsv,2);
-    /*read_image_data_csv(histogramfeatureListCsv, imagefilenames, data);
-     
-     vector<HistogramMatchingStruct> distanceVector;
-     
-     for(int i=0;i<imagefilenames.size();i++){
-     
-     distanceVector.push_back(HistogramMatchingStruct(targetImage,imagefilenames[i],gethistogramIntersectionDistance(targetFeatures, data[i])));
-     }
-     std::sort(distanceVector.begin(),distanceVector.end());
-     cout<<"Iterator output."<<endl;
-     printf("Printing first %d closest images.\n",n);
-     int i=1;
-     for(std::vector<HistogramMatchingStruct>::iterator  it = distanceVector.begin(); it != distanceVector.end(); it++) {
-     cout << it->imageName<<endl;
-     i++;
-     if(i>n)
-     break;
-     }
-     */
-    return 0;
-}
+/**Creates a vector of Normalised histogram comparisons(with 2 histograms per image). The image is split horizontally.**/
 vector<HistogramMatchingStruct> readImagesForHistParts(char* dirname,char* targetImage,vector<vector<float>> targetFeature) {
     
     
     char imageFileNameBuffer[256];
-    FILE *fp;
+    
     DIR *dirp;
     struct dirent *dp;
-    int i;
+    
     vector<HistogramMatchingStruct> distanceVector;
     // open the directory
     dirp = opendir( dirname );
@@ -295,7 +264,7 @@ vector<HistogramMatchingStruct> readImagesForHistParts(char* dirname,char* targe
             double bottomDistance = gethistogramIntersectionDistance(targetFeature[1],imageFeature[1]);
             
             double totalDistance = (0.7*topDistance)+ (0.3*bottomDistance);
-            printf("Total distance : %f\n",totalDistance);
+            //printf("Total distance : %f\n",totalDistance);
             
             distanceVector.push_back(HistogramMatchingStruct(targetImage,imageFileNameBuffer,totalDistance));
         }
@@ -304,15 +273,15 @@ vector<HistogramMatchingStruct> readImagesForHistParts(char* dirname,char* targe
     
     return distanceVector;
     
-    
-    //printf("Terminating\n");
+
     
 }
 
-int HistogramMatchingInParts(char* targetImage, char* imageDir, int n){
+/**This function compares target image with images in repositiry. Distance metric is the sum of histogram intersection of top halves and bottom halves of images being compared.**/
+vector<string> HistogramMatchingInParts(char* targetImage, char* imageDir, int n){
     vector<vector<float>> targetFeatures;
     targetFeatures=generateNormalisedHistogramVecParts(targetImage);
-    
+    vector<string> result;
     
     std::vector<char*> imagefilenames;
     std::vector<std::vector<float>> data;
@@ -322,15 +291,16 @@ int HistogramMatchingInParts(char* targetImage, char* imageDir, int n){
     distanceVector=readImagesForHistParts(imageDir, targetImage, targetFeatures);
     
     std::sort(distanceVector.begin(),distanceVector.end());
-    cout<<"Iterator output."<<endl;
-    printf("Printing first %d closest images.\n",n);
+    
+    printf("Printing first %d closest images for Multiple Histogram matching.\n",n);
     int i=1;
     for(std::vector<HistogramMatchingStruct>::iterator  it = distanceVector.begin(); it != distanceVector.end(); it++) {
         cout << it->imageName<<endl;
+        result.push_back(it->imageName);
         i++;
         if(i>n)
             break;
     }
     
-    return 0;
+    return result;
 }

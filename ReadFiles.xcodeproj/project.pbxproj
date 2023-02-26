@@ -64,9 +64,8 @@
 		2B1029512996C76300418CC6 /* libopencv_intensity_transform.4.7.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1029192996C76300418CC6 /* libopencv_intensity_transform.4.7.0.dylib */; };
 		2B1029522996C76300418CC6 /* libopencv_fuzzy.4.7.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B10291A2996C76300418CC6 /* libopencv_fuzzy.4.7.0.dylib */; };
 		2B1029532996C76300418CC6 /* libopencv_bioinspired.4.7.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B10291B2996C76300418CC6 /* libopencv_bioinspired.4.7.0.dylib */; };
-		2B1029562996C8B500418CC6 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B1029542996C8B500418CC6 /* utils.cpp */; };
-		2B1029592996D32800418CC6 /* FeatureCompareUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B1029572996D32800418CC6 /* FeatureCompareUtils.cpp */; };
-		2B329E2429961C1300A50C45 /* readfiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B329E2329961C1300A50C45 /* readfiles.cpp */; };
+		2B5FE0AD29A1D6C000CEE09A /* CBIRSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FE0AB29A1D5E300CEE09A /* CBIRSelector.cpp */; };
+		2B5FE0B529A1D7DA00CEE09A /* BaselineMatching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FE0B329A1D7DA00CEE09A /* BaselineMatching.cpp */; };
 		2BD728262999BC6800A28681 /* HistogramMatching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BD728242999BC6800A28681 /* HistogramMatching.cpp */; };
 		2BD72829299E7AE600A28681 /* TextureAnalysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BD72827299E7AE600A28681 /* TextureAnalysis.cpp */; };
 		2BD7282C29A0201B00A28681 /* CBIR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BD7282A29A0201B00A28681 /* CBIR.cpp */; };
@@ -143,12 +142,11 @@
 		2B1029192996C76300418CC6 /* libopencv_intensity_transform.4.7.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_intensity_transform.4.7.0.dylib; path = ../../../../../../opt/homebrew/Cellar/opencv/4.7.0_1/lib/libopencv_intensity_transform.4.7.0.dylib; sourceTree = "<group>"; };
 		2B10291A2996C76300418CC6 /* libopencv_fuzzy.4.7.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_fuzzy.4.7.0.dylib; path = ../../../../../../opt/homebrew/Cellar/opencv/4.7.0_1/lib/libopencv_fuzzy.4.7.0.dylib; sourceTree = "<group>"; };
 		2B10291B2996C76300418CC6 /* libopencv_bioinspired.4.7.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_bioinspired.4.7.0.dylib; path = ../../../../../../opt/homebrew/Cellar/opencv/4.7.0_1/lib/libopencv_bioinspired.4.7.0.dylib; sourceTree = "<group>"; };
-		2B1029542996C8B500418CC6 /* utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
-		2B1029552996C8B500418CC6 /* utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
-		2B1029572996D32800418CC6 /* FeatureCompareUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FeatureCompareUtils.cpp; sourceTree = "<group>"; };
-		2B1029582996D32800418CC6 /* FeatureCompareUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FeatureCompareUtils.hpp; sourceTree = "<group>"; };
-		2B329E1929961BEF00A50C45 /* ReadFiles */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ReadFiles; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B329E2329961C1300A50C45 /* readfiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = readfiles.cpp; path = ../../readfiles.cpp; sourceTree = "<group>"; };
+		2B329E1929961BEF00A50C45 /* CBIRSelectorTarget */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CBIRSelectorTarget; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B5FE0AB29A1D5E300CEE09A /* CBIRSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CBIRSelector.cpp; sourceTree = "<group>"; };
+		2B5FE0B329A1D7DA00CEE09A /* BaselineMatching.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BaselineMatching.cpp; sourceTree = "<group>"; };
+		2B5FE0B429A1D7DA00CEE09A /* BaselineMatching.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BaselineMatching.hpp; sourceTree = "<group>"; };
+		2B5FE0BC29A2BC1C00CEE09A /* Readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		2BD728242999BC6800A28681 /* HistogramMatching.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HistogramMatching.cpp; sourceTree = "<group>"; };
 		2BD728252999BC6800A28681 /* HistogramMatching.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HistogramMatching.hpp; sourceTree = "<group>"; };
 		2BD72827299E7AE600A28681 /* TextureAnalysis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureAnalysis.cpp; sourceTree = "<group>"; };
@@ -291,7 +289,7 @@
 		2B329E1A29961BEF00A50C45 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B329E1929961BEF00A50C45 /* ReadFiles */,
+				2B329E1929961BEF00A50C45 /* CBIRSelectorTarget */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,29 +297,60 @@
 		2B329E1B29961BEF00A50C45 /* ReadFiles */ = {
 			isa = PBXGroup;
 			children = (
+				2B5FE0BB29A1DD2500CEE09A /* CBIR */,
+				2B5FE0BA29A1DC3A00CEE09A /* TextureAnalysis */,
+				2B5FE0B629A1DA1C00CEE09A /* HistogramMatching */,
+				2B5FE0B229A1D7BE00CEE09A /* BaselineMatching */,
 				2B1028E22996B17500418CC6 /* csv_util.cpp */,
 				2B1028E12996B17500418CC6 /* csv_util.h */,
-				2B329E2329961C1300A50C45 /* readfiles.cpp */,
-				2B1029542996C8B500418CC6 /* utils.cpp */,
-				2B1029552996C8B500418CC6 /* utils.hpp */,
-				2B1029572996D32800418CC6 /* FeatureCompareUtils.cpp */,
-				2B1029582996D32800418CC6 /* FeatureCompareUtils.hpp */,
+				2B5FE0AB29A1D5E300CEE09A /* CBIRSelector.cpp */,
+				2B5FE0BC29A2BC1C00CEE09A /* Readme.txt */,
+			);
+			path = ReadFiles;
+			sourceTree = "<group>";
+		};
+		2B5FE0B229A1D7BE00CEE09A /* BaselineMatching */ = {
+			isa = PBXGroup;
+			children = (
+				2B5FE0B329A1D7DA00CEE09A /* BaselineMatching.cpp */,
+				2B5FE0B429A1D7DA00CEE09A /* BaselineMatching.hpp */,
+			);
+			path = BaselineMatching;
+			sourceTree = "<group>";
+		};
+		2B5FE0B629A1DA1C00CEE09A /* HistogramMatching */ = {
+			isa = PBXGroup;
+			children = (
 				2BD728242999BC6800A28681 /* HistogramMatching.cpp */,
 				2BD728252999BC6800A28681 /* HistogramMatching.hpp */,
+			);
+			path = HistogramMatching;
+			sourceTree = "<group>";
+		};
+		2B5FE0BA29A1DC3A00CEE09A /* TextureAnalysis */ = {
+			isa = PBXGroup;
+			children = (
 				2BD72827299E7AE600A28681 /* TextureAnalysis.cpp */,
 				2BD72828299E7AE600A28681 /* TextureAnalysis.hpp */,
+			);
+			path = TextureAnalysis;
+			sourceTree = "<group>";
+		};
+		2B5FE0BB29A1DD2500CEE09A /* CBIR */ = {
+			isa = PBXGroup;
+			children = (
 				2BD7282A29A0201B00A28681 /* CBIR.cpp */,
 				2BD7282B29A0201B00A28681 /* CBIR.hpp */,
 			);
-			path = ReadFiles;
+			path = CBIR;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2B329E1829961BEF00A50C45 /* ReadFiles */ = {
+		2B329E1829961BEF00A50C45 /* CBIRSelectorTarget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B329E2029961BEF00A50C45 /* Build configuration list for PBXNativeTarget "ReadFiles" */;
+			buildConfigurationList = 2B329E2029961BEF00A50C45 /* Build configuration list for PBXNativeTarget "CBIRSelectorTarget" */;
 			buildPhases = (
 				2B329E1529961BEF00A50C45 /* Sources */,
 				2B329E1629961BEF00A50C45 /* Frameworks */,
@@ -331,9 +360,9 @@
 			);
 			dependencies = (
 			);
-			name = ReadFiles;
+			name = CBIRSelectorTarget;
 			productName = ReadFiles;
-			productReference = 2B329E1929961BEF00A50C45 /* ReadFiles */;
+			productReference = 2B329E1929961BEF00A50C45 /* CBIRSelectorTarget */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -363,7 +392,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2B329E1829961BEF00A50C45 /* ReadFiles */,
+				2B329E1829961BEF00A50C45 /* CBIRSelectorTarget */,
 			);
 		};
 /* End PBXProject section */
@@ -373,12 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B1029592996D32800418CC6 /* FeatureCompareUtils.cpp in Sources */,
 				2BD72829299E7AE600A28681 /* TextureAnalysis.cpp in Sources */,
-				2B1029562996C8B500418CC6 /* utils.cpp in Sources */,
+				2B5FE0AD29A1D6C000CEE09A /* CBIRSelector.cpp in Sources */,
+				2B5FE0B529A1D7DA00CEE09A /* BaselineMatching.cpp in Sources */,
 				2B1028E32996B17500418CC6 /* csv_util.cpp in Sources */,
 				2BD7282C29A0201B00A28681 /* CBIR.cpp in Sources */,
-				2B329E2429961C1300A50C45 /* readfiles.cpp in Sources */,
 				2BD728262999BC6800A28681 /* HistogramMatching.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B329E2029961BEF00A50C45 /* Build configuration list for PBXNativeTarget "ReadFiles" */ = {
+		2B329E2029961BEF00A50C45 /* Build configuration list for PBXNativeTarget "CBIRSelectorTarget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B329E2129961BEF00A50C45 /* Debug */,

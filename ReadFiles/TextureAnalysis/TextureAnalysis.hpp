@@ -10,7 +10,8 @@
 
 #include <stdio.h>
 #include <vector>
-void textureAnalysis();
+#include <string>
+std::vector<std::string> textureAnalysis(char* target,char* dir, int n);
 //int vectorizeMatrix(cv::Mat &img,std::vector<float> &vec);
 int getTextureVector(char* image, std::vector<float> &vec);
 #endif /* TextureAnalysis_hpp */

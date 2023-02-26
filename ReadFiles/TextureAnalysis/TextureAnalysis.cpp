@@ -7,20 +7,13 @@
 
 #include "TextureAnalysis.hpp"
 #include <opencv2/opencv.hpp>
-#include "HistogramMatching.hpp"
-#include "csv_util.h"
-#include "FeatureCompareUtils.hpp"
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
+#include "../HistogramMatching/HistogramMatching.hpp"
 #include <dirent.h>
 #include <vector>
-#include "csv_util.h"
-#include <opencv2/opencv.hpp>
-#include "utils.hpp"
 
 
-
+/** Applies the Sobel -X filter on the image.
+ */
 int sobelX3x3( cv::Mat &src, cv::Mat &dst ){
     int filter1[] = {-1,0,1};
     int filter2[] = {1,2,1};
@@ -71,6 +64,7 @@ int sobelX3x3( cv::Mat &src, cv::Mat &dst ){
     return 0;
     
 }
+/**Applies a Sobel-Y filter on the image**/
 int sobelY3x3( cv::Mat &src, cv::Mat &dst ){
     
     int filter1[] = {1,2,1};
@@ -119,6 +113,8 @@ int sobelY3x3( cv::Mat &src, cv::Mat &dst ){
     
     return 0;
 }
+
+/**Computes the gradient magnitude of the image**/
 int magnitude( cv::Mat &sx, cv::Mat &sy, cv::Mat &dst ){
     dst = cv::Mat::zeros(sx.size(),CV_8SC3);
     for(int i=0;i<sx.rows;i++){
@@ -137,7 +133,7 @@ int magnitude( cv::Mat &sx, cv::Mat &sy, cv::Mat &dst ){
 }
 
 
-
+/**Returns a normalised histogram vector of gradient magnitude of an image**/
 int getTextureVector(char* image, std::vector<float> &vec){
     cv::Mat imgSrc;
     
@@ -207,6 +203,7 @@ int getTextureVector(char* image, std::vector<float> &vec){
     return 0;
 }
 
+/**A vector of HistogramTextureMatchingStruct is used to compare results of Texture Analysis between images. **/
 struct HistogramTextureMatchingStruct
 {
     double histIntersection;
@@ -226,14 +223,15 @@ struct HistogramTextureMatchingStruct
     }
 };
 
+/**Reads images from directory, compares it with target image for texture analysis and returns a vector of comparison result**/
 vector<HistogramTextureMatchingStruct> readImagesForTextureAnalysis(char* dirname,char* targetImage) {
     
     
     char imageFileNameBuffer[256];
-    FILE *fp;
+   
     DIR *dirp;
     struct dirent *dp;
-    int i;
+   
     vector<HistogramTextureMatchingStruct> distanceVector;
     // open the directory
     dirp = opendir( dirname );
@@ -290,70 +288,23 @@ vector<HistogramTextureMatchingStruct> readImagesForTextureAnalysis(char* dirnam
     
 }
 
-void textureAnalysis(){
-    char* img1 ="/Users/venkysundar/Desktop/CV5330/Project2/olympus/pic.0164.jpg";
-    char* img2 ="/Users/venkysundar/Desktop/CV5330/Project2/olympus/pic.0110.jpg";
-    char* img3 ="/Users/venkysundar/Desktop/CV5330/Project2/olympus/pic.1032.jpg";
-    char* img4 ="/Users/venkysundar/Desktop/CV5330/Project2/olympus/pic.0164.jpg";
+vector<string> textureAnalysis(char* target,char* dir, int n){
     
-    /*  std::vector<float> gradTextureVec;
-     getTextureVector(img1, gradTextureVec);
-     vector<float> rgbHistFeatures;
-     rgbHistFeatures=generateNormalisedHistogramVec(img1);
-     printf("I've got a Texture Vector.\n");
-     
-     std::vector<float> gradTextureVec2;
-     getTextureVector(img2, gradTextureVec2);
-     vector<float> rgbHistFeatures2;
-     rgbHistFeatures2=generateNormalisedHistogramVec(img2);
-     printf("I've got a Texture Vector.\n");
-     
-     
-     
-     double rgbDistance = gethistogramIntersectionDistance(rgbHistFeatures, rgbHistFeatures2);
-     double gradDistance = gethistogramIntersectionDistance(gradTextureVec, gradTextureVec2);
-     
-     vector<HistogramTextureMatchingStruct> distanceVector;
-     distanceVector.push_back(HistogramTextureMatchingStruct(img1,img2,(rgbDistance+gradDistance)));
-     
-     std::vector<float> gradTextureVec3;
-     getTextureVector(img3, gradTextureVec3);
-     vector<float> rgbHistFeatures3;
-     rgbHistFeatures3=generateNormalisedHistogramVec(img3);
-     printf("I've got a Texture Vector.\n");
-     
-     
-     
-     rgbDistance = gethistogramIntersectionDistance(rgbHistFeatures, rgbHistFeatures3);
-     gradDistance = gethistogramIntersectionDistance(gradTextureVec, gradTextureVec3);
-     distanceVector.push_back(HistogramTextureMatchingStruct(img1,img3,(rgbDistance+gradDistance)));
-     
-     std::vector<float> gradTextureVec4;
-     getTextureVector(img4, gradTextureVec4);
-     vector<float> rgbHistFeatures4;
-     rgbHistFeatures4=generateNormalisedHistogramVec(img4);
-     printf("I've got a Texture Vector.\n");
-     
-     
-     
-     rgbDistance = gethistogramIntersectionDistance(rgbHistFeatures, rgbHistFeatures4);
-     gradDistance = gethistogramIntersectionDistance(gradTextureVec, gradTextureVec4);
-     distanceVector.push_back(HistogramTextureMatchingStruct(img1,img4,(rgbDistance+gradDistance)));
-     */
     vector<HistogramTextureMatchingStruct> distanceVector;
-    distanceVector=readImagesForTextureAnalysis("/Users/venkysundar/Desktop/CV5330/Project2/olympus/",img1);
-    int n=5;
+    distanceVector=readImagesForTextureAnalysis(dir,target);
+    vector<string> result;
     std::sort(distanceVector.begin(),distanceVector.end());
-    cout<<"Iterator output."<<endl;
-    printf("Printing first %d closest images.\n",n);
+   
+    printf("Printing first %d closest images after Texture analysis.\n",n);
     int i=1;
     for(std::vector<HistogramTextureMatchingStruct>::iterator  it = distanceVector.begin(); it != distanceVector.end(); it++) {
-        cout << it->imageName<<" "<< it->histIntersection<<endl;
+        cout << it->imageName<<endl;
         i++;
+        result.push_back(it->imageName);
         if(i>n)
             break;
     }
-    
+    return result;
     
 }
 

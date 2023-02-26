@@ -1,6 +1,6 @@
 //
 //  HistogramMatching.hpp
-//  ReadFiles
+//  Header file for Histogram Matching
 //
 //  Created by Venky Sundar on 2/12/23.
 //
@@ -12,8 +12,8 @@
 #include <vector>
 using namespace std;
 vector<float> generateNormalisedHistogramVec(char* target);
-int histogramMatching(char* targetImage,char* imagesDir,int n);
+vector<string>  histogramMatching(char* targetImage,char* imagesDir,int n,bool readfromCsv=true);
 std::vector<std::vector<float>> generateNormalisedHistogramVecParts(char* target,int rowDiv=2, int colDiv=1);
 double gethistogramIntersectionDistance(vector<float> targetFeatures,vector<float> data);
-int HistogramMatchingInParts(char* targetImage, char* imageDir, int n);
+vector<string> HistogramMatchingInParts(char* targetImage, char* imageDir, int n);
 #endif /* HistogramMatching_hpp */
